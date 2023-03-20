@@ -1,18 +1,22 @@
 import * as React from 'react';
-import { HomeScreen, LoginScreen } from './components/login/Login.js';
+import LoginScreen from './components/login/Login.js';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import LoginScreen2 from './components/login/LoginScreen2.js';
+import HomeScreen from './components/Home/Home.js';
+import CreateUser from './components/createUser/CreateUser.js';
 
 const Stack = createNativeStackNavigator();
 
 export default function App() {
 
-  return (
+    return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="Login">
-        <Stack.Screen name="Login" component={LoginScreen} />
-        <Stack.Screen name="Home" component={HomeScreen} />
-      </Stack.Navigator>
+        <Stack.Navigator initialRouteName="Login" screenOptions={{headerShown: false}}>
+            <Stack.Screen name="Login" component={LoginScreen2} />
+            <Stack.Screen name="Home" component={HomeScreen} />
+            <Stack.Screen name="CreateUser" component={CreateUser} />
+        </Stack.Navigator>
     </NavigationContainer>
-  );
+    );
 }

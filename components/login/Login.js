@@ -1,5 +1,5 @@
 import React, {useEffect} from 'react';
-import { Image, Text, StyleSheet, View, ScrollView, TouchableOpacity, TextInput, Button, Alert } from 'react-native';
+import { Image, Text, StyleSheet, View, ScrollView, TouchableOpacity, TextInput, Alert } from 'react-native';
 import { BlurView } from 'expo-blur';
 
 import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'firebase/auth';
@@ -14,15 +14,7 @@ import { useNavigation } from '@react-navigation/native';
 const uri = 'https://ak.picdn.net/shutterstock/videos/1060308725/thumb/1.jpg'
 const profilePicture = 'https://randomuser.me/api/portraits/men/3.jpg'
 
-export function HomeScreen() {
-  return (
-    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-      <Text>Home Screen</Text>
-    </View>
-  );
-}
-
-export function LoginScreen() {
+const LoginScreen = () => {
 
     const [email, setEmail] = React.useState('')
     const [password, setPassword] = React.useState('')
@@ -34,7 +26,8 @@ export function LoginScreen() {
     const handleCreateAccount = () => {
         createUserWithEmailAndPassword(auth, email, password)
         .then((userCredential) => {
-            console.log('Account created!')
+            console.log('Account created!');
+            Alert.alert('Account created!');
             const user = userCredential.user;
             console.log(user)
         })
@@ -47,13 +40,15 @@ export function LoginScreen() {
     const handleSignIn = () => {
         signInWithEmailAndPassword(auth, email, password)
         .then((userCredential) => {
-            console.log('Signed in!')
+            console.log('Signed in!');
+            Alert.alert('Signed in!');
             const user = userCredential.user;
             console.log(user)
             navigation.navigate('Home');
         })
         .catch(error => {
             console.log(error)
+            Alert.alert(error.message)
         })
     }
 
@@ -85,7 +80,7 @@ export function LoginScreen() {
                             <Text style={{fontSize: 17, fontWeight: '400', color: 'white'}}>Login</Text>
                         </TouchableOpacity>
                         <TouchableOpacity onPress={handleCreateAccount} style={[styles.button, {backgroundColor: '#6792F090'}]}>
-                            <Text style={{fontSize: 17, fontWeight: '400', color: 'white'}}>Create Account</Text>
+                                <Text style={{fontSize: 17, fontWeight: '400', color: 'white'}}>Create Account</Text>  
                         </TouchableOpacity>
                     </View>
                 </BlurView>
@@ -145,3 +140,5 @@ const styles = StyleSheet.create({
         borderWidth: 1,
     }
 });
+
+export default LoginScreen;
