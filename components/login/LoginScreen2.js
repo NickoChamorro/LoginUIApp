@@ -11,6 +11,7 @@ import { useNavigation } from '@react-navigation/native';
 const LoginScreen2 = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [user, setUser] = useState(null);
     const navigation = useNavigation();
 
     const app = initializeApp(firebaseConfig);
@@ -33,7 +34,28 @@ const LoginScreen2 = () => {
     };
 
     const handleGoogleLogin = async () => {
-
+        try {
+            const { idToken, accessToken } = await Google.logInAsync({
+                androidClientId: YOUR_ANDROID_CLIENT_ID,
+                iosClientId: YOUR_IOS_CLIENT_ID,
+                scopes: ['profile', 'email'],
+            });
+    
+            // Crea una credencial de Google con el token de acceso
+            const credential = firebase.auth.GoogleAuthProvider.credential(
+                idToken,
+                accessToken
+            );
+    
+            // Inicia sesión con la credencial de Google
+            const userCredential = await firebase
+                .auth()
+                .signInWithCredential(credential);
+    
+            setUser(userCredential.user);
+        } catch (error) {
+            console.log(error);
+        }
     };
 
     const handleFacebookLogin = async () => {
