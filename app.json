@@ -21,10 +21,25 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
+      },
+      "package": "com.nchamorro.InicioSesionUI",
+      "config": {
+        "googleSignIn": {
+          "apiKey": "AIzaSyApYpSF3QIhi9FXyAzea7Rx4J5lCs8b6e4",
+          "certificateHash": "<certificateHash>",
+          "clientId": "602459036985-hq01ug31blrmubod9f5qn13eg6km8dn5.apps.googleusercontent.com",
+          "hash": "<hash>",
+          "packageName": "com.nchamorro.InicioSesionUI"
+        }
       }
     },
     "web": {
       "favicon": "./assets/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "3dac5319-cbf8-4eec-b989-169633b2f293"
+      }
     }
   }
 }

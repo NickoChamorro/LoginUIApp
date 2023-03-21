@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
 import { StyleSheet, View, Text, TextInput, TouchableOpacity, ScrollView, Image, Alert } from 'react-native';
 
-import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'firebase/auth';
+import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
 import { initializeApp } from 'firebase/app';
 import { firebaseConfig } from '../../config/FirebaseConfig.js';
+import * as Google from 'expo-auth-session/providers/google';
 
 import { useNavigation } from '@react-navigation/native';
+import { ANDROID_CLIENT_ID, IOS_CLIENT_ID } from '../../config/GlobalConfig.js';
 
 
 const LoginScreen2 = () => {
@@ -36,8 +38,8 @@ const LoginScreen2 = () => {
     const handleGoogleLogin = async () => {
         try {
             const { idToken, accessToken } = await Google.logInAsync({
-                androidClientId: YOUR_ANDROID_CLIENT_ID,
-                iosClientId: YOUR_IOS_CLIENT_ID,
+                androidClientId: ANDROID_CLIENT_ID,
+                iosClientId: IOS_CLIENT_ID,
                 scopes: ['profile', 'email'],
             });
     
@@ -53,13 +55,23 @@ const LoginScreen2 = () => {
                 .signInWithCredential(credential);
     
             setUser(userCredential.user);
+            console.log(User);
+            navigation.navigate('Home');
         } catch (error) {
             console.log(error);
         }
     };
 
     const handleFacebookLogin = async () => {
-
+        async function signInWithGoogle() {
+            try {
+              const { idToken, accessToken } = await GoogleSignin.signIn();
+              const credential = firebase.auth.GoogleAuthProvider.credential(idToken, accessToken);
+              await firebase.auth().signInWithCredential(credential);
+            } catch (error) {
+              console.log(error);
+            }
+          }
     };
 
     const forgotPassword = () => {
